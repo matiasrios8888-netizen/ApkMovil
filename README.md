@@ -14,8 +14,13 @@ envían a ningún servidor.
   - 🟢 cuánto **ingresaste**
   - 🔴 cuánto **gastaste**
   - 💙 cuánto **ahorraste** (o déficit si gastaste de más)
+- **Plan / Presupuesto** 🎯: cargás tu ingreso y tus gastos fijos, y la app te
+  dice **cuánto te queda libre** y **en qué se va** ese sobrante, con barras por
+  categoría.
 - Elegir el **mes** que querés ver.
 - Listado de movimientos con opción de borrar.
+- Interfaz con **colores vivos y animaciones** (números que cuentan, barras que
+  se llenan, tarjetas que aparecen).
 
 ## 📱 Cómo obtener el APK para instalar en tu Android
 

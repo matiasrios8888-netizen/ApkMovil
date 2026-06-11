@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatMoney } from '../format.js'
+import { useCountUp } from '../useCountUp.js'
 
 // Calcula totales por moneda (ingreso, gasto, ahorro) para un set de movimientos.
 function totalsByCurrency(transactions) {
@@ -15,25 +16,36 @@ function totalsByCurrency(transactions) {
   return result
 }
 
-function CurrencyCard({ currency, data }) {
+function Amount({ value, currency }) {
+  const v = useCountUp(value)
+  return <>{formatMoney(Math.round(v), currency)}</>
+}
+
+function CurrencyCard({ currency, data, delay }) {
   const ahorro = data.ingreso - data.gasto
   const hayMovimientos = data.ingreso !== 0 || data.gasto !== 0
   if (!hayMovimientos) return null
 
   return (
-    <div className="summary-card">
-      <h3>{currency === 'USD' ? 'Dólares (US$)' : 'Pesos ($)'}</h3>
+    <div className="summary-card pop" style={{ animationDelay: delay + 'ms' }}>
+      <h3>{currency === 'USD' ? '💵 Dólares (US$)' : '🇦🇷 Pesos ($)'}</h3>
       <div className="summary-row income">
-        <span>Ingresos</span>
-        <strong>{formatMoney(data.ingreso, currency)}</strong>
+        <span>📈 Ingresos</span>
+        <strong>
+          <Amount value={data.ingreso} currency={currency} />
+        </strong>
       </div>
       <div className="summary-row expense">
-        <span>Gastos</span>
-        <strong>{formatMoney(data.gasto, currency)}</strong>
+        <span>📉 Gastos</span>
+        <strong>
+          <Amount value={data.gasto} currency={currency} />
+        </strong>
       </div>
       <div className={'summary-row saving ' + (ahorro >= 0 ? 'positive' : 'negative')}>
-        <span>{ahorro >= 0 ? 'Ahorro' : 'Déficit'}</span>
-        <strong>{formatMoney(ahorro, currency)}</strong>
+        <span>{ahorro >= 0 ? '🐷 Ahorro' : '🔻 Déficit'}</span>
+        <strong>
+          <Amount value={ahorro} currency={currency} />
+        </strong>
       </div>
     </div>
   )
@@ -48,7 +60,7 @@ export default function MonthSummary({ transactions }) {
   if (!hayAlgo) {
     return (
       <div className="empty-state">
-        <p>📊</p>
+        <p className="empty-emoji">📊</p>
         <p>No hay movimientos este mes.</p>
         <p className="muted">Agregá un ingreso o un gasto para ver tu resumen.</p>
       </div>
@@ -57,8 +69,8 @@ export default function MonthSummary({ transactions }) {
 
   return (
     <div className="summary">
-      <CurrencyCard currency="ARS" data={totals.ARS} />
-      <CurrencyCard currency="USD" data={totals.USD} />
+      <CurrencyCard currency="ARS" data={totals.ARS} delay={0} />
+      <CurrencyCard currency="USD" data={totals.USD} delay={90} />
     </div>
   )
 }
