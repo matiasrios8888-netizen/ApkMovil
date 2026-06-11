@@ -1,0 +1,13 @@
+# dependencias
+node_modules/
+
+# build web
+dist/
+
+# proyecto android generado por Capacitor (se regenera en CI)
+android/
+
+# logs y temporales
+*.log
+.DS_Store
+.vite/

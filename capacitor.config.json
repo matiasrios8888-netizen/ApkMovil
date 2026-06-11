@@ -1,0 +1,8 @@
+{
+  "appId": "com.misgastos.app",
+  "appName": "Mis Gastos",
+  "webDir": "dist",
+  "android": {
+    "allowMixedContent": false
+  }
+}
